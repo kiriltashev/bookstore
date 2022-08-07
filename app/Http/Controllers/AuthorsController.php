@@ -37,7 +37,13 @@ class AuthorsController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
-        //
+        $faker = \Faker\Factory::create(1);
+
+        $author = Author::create([
+            'name' => $faker->name
+        ]);
+
+        return new AuthorsResource($author);
     }
 
     /**
@@ -71,7 +77,11 @@ class AuthorsController extends Controller
      */
     public function update(UpdateAuthorRequest $request, Author $author)
     {
-        //
+        $author->update([
+            'name' => $request->input('name'),
+        ]);
+
+        return new AuthorsResource($author);
     }
 
     /**
@@ -82,6 +92,8 @@ class AuthorsController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+
+        return response(null, 204);
     }
 }
