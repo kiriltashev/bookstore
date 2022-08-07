@@ -11,7 +11,13 @@ class Book extends Model
 
     protected $fillable = ['name', 'description', 'publication_year'];
 
-    public function author()
+    protected $hidden = [
+        'laravel_through_key',
+        'created_at',
+        'updated_at',
+    ];
+
+    public function authors()
     {
         return $this->hasManyThrough(
             'App\Models\Author',
